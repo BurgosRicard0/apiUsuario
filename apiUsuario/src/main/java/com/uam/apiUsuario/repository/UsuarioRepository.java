@@ -10,7 +10,7 @@ import com.uam.apiUsuario.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository <Usuario, Long>{
-	@Query("SELECT new com.uam.apiUsuario.model.Usuario(u.id, u.nombre, u.email) FROM Usuario u")
+	@Query("SELECT new com.uam.apiUsuario.model.Usuario(u.id, u.nombre, u.contraseña, u.direccion, u.telefono, u.email) FROM Usuario u")
     List<Usuario> findAll();
     
 

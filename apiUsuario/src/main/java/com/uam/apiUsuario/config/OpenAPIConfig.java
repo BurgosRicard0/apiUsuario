@@ -10,15 +10,15 @@ import io.swagger.v3.oas.models.servers.Server;
 @Configuration
 public class OpenAPIConfig {
 
-  @Bean
-  public OpenAPI myOpenAPI() {
-    Server devServer = new Server();
+    @Bean
+    OpenAPI myOpenAPI() {
+        Server devServer = new Server();
 
-    Info info = new Info()
-            .title("Tutorial Management API")
-            .version("1.0")
-            .description("This API exposes endpoints to manage tutorials.");
+        Info info = new Info()
+                .title("Tutorial Management API")
+                .version("1.0")
+                .description("This API exposes endpoints to manage tutorials.");
 
-    return new OpenAPI().info(info);
-  }
+        return new OpenAPI().info(info);
+    }
 }

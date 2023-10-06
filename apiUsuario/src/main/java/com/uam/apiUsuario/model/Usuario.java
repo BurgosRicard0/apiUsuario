@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@EqualsAndHashCode
 public class Usuario {
 	
 	@Id
@@ -25,8 +24,8 @@ public class Usuario {
     private String telefono;
     private String email;
     
-    
+    /*
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Reservacion> reservaciones;
+    private List<Reservacion> reservaciones;*/
     
 }

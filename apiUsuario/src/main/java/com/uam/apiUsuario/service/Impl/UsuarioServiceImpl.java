@@ -1,4 +1,4 @@
-package com.uam.apiUsuario.service.impl;
+package com.uam.apiUsuario.service.Impl;
 
 import java.util.List;
 import java.util.Optional;

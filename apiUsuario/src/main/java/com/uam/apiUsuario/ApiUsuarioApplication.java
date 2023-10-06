@@ -1,4 +1,4 @@
-package com.uam.apiUsuario.apiUsuario;
+package com.uam.apiUsuario;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
