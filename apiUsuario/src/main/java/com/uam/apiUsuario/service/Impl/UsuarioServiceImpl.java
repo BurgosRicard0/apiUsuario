@@ -16,11 +16,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
-    private final UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Override
     public List<Usuario> getUsuario() {
-        return (List<Usuario>) usuarioRepository.findAll();
+        return usuarioRepository.findAll();
     }
 
     @Override

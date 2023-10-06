@@ -18,6 +18,10 @@ import org.springframework.web.client.RestTemplate;
 import com.uam.apiUsuario.model.Usuario;
 import com.uam.apiUsuario.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -37,30 +41,45 @@ public class UsuarioController {
         return ResponseEntity.ok(hotelInfo);
     }
 
-    @GetMapping
+    @Operation(summary = "Obtener lista de usuarios", description = "Devuelve una lista de todos los usuarios", tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Respuesta exitosa") })
+    @GetMapping("/")
     public ResponseEntity<List<Usuario>> getUsuarios() {
+    	try {
         List<Usuario> usuarios = usuarioService.getUsuario();
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
+    	} catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
+    @Operation(summary = "Obtener la informacion de un Usuario", description = "Obtener la informacion de un Usuario", tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Respuesta exitosa") })
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable Long id) {
         Usuario usuario = usuarioService.findById(id);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
-
-    @PostMapping
+    @Operation(summary = "Dar de alta la informacion de un Usuario", description = "Dar de alta la informacion de un Usuario", tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Respuesta exitosa") })
+    @PostMapping("/")
     public ResponseEntity<Usuario> addUsuario(@RequestBody Usuario usuario) {
         Usuario nuevoUsuario = usuarioService.addUsuario(usuario);
         return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
     }
-
+    @Operation(summary = "Actualizar la informacion de un Usuario", description = "Actualizar la informacion de un Usuario", tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Respuesta exitosa") })
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
         Usuario usuarioActualizado = usuarioService.updateUsuario(id, usuario);
         return new ResponseEntity<>(usuarioActualizado, HttpStatus.OK);
     }
-
+    @Operation(summary = "Eliminar la informacion de un Usuario", description = "Eliminar la informacion de un Usuario", tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Respuesta exitosa") })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         usuarioService.deleteUsuario(id);
