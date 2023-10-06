@@ -1,14 +1,9 @@
 package com.uam.apiUsuario.model;
 
-import java.util.List; // Importa la clase List correcta desde java.util
+import java.util.List; 
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode
+@Table(name = "usuarios")
 public class Usuario {
 	
 	@Id

@@ -1,4 +1,4 @@
-package com.uam.apiUsuario.service.Impl;
+package com.uam.apiUsuario.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +10,13 @@ import com.uam.apiUsuario.model.Usuario;
 import com.uam.apiUsuario.repository.UsuarioRepository;
 import com.uam.apiUsuario.service.UsuarioService;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+	@Autowired
+    private final UsuarioRepository usuarioRepository;
 
     @Override
     public List<Usuario> getUsuario() {
@@ -24,42 +27,36 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario addUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
+    
+	@Override
+	public Usuario deleteUsuario(Long id) {
+		Optional<Usuario> usuarioOp= usuarioRepository.findById(id);
+		if (usuarioOp.isPresent()) {
+            Usuario usuario = usuarioOp.get();
+            usuarioRepository.delete(usuario);
+            return usuario;
+		} else {
+            return null;
+        }
+	}
+	@Override
+	public Usuario findById(Long id) {
+		Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+		return optionalUsuario.get();
+	}
 
-    @Override
-    public void deleteUsuario(String id) {
-        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
-
-        if (optionalUsuario.isPresent()) {
-            usuarioRepository.deleteById(id);
-        } 
-    }
-
-    @Override
-    public Usuario updateUsuario(String id, Usuario usuario) {
-    	Usuario usuarioVar = usuarioRepository.findById(id).get();
-
-       
-
-            if (usuario.getNombre() != null) {
-                usuarioVar.setNombre(usuario.getNombre());
-            }
-            if (usuario.getTelefono() != null) {
-                usuarioVar.setTelefono(usuario.getTelefono());
-            }
-            if (usuario.getEmail() != null) {
-                usuarioVar.setEmail(usuario.getEmail());
-            }
-            if (usuario.getDireccion() != null) {
-                usuarioVar.setDireccion(usuario.getDireccion());
-            }
-
-            usuarioRepository.save(usuarioVar);
-            return usuarioVar;
-       
-    }
-
-    @Override
-    public Usuario findById(String id) {
-    	return usuarioRepository.findById(id).orElse(null);
-    }
+	@Override
+	public Usuario updateUsuario(Long id, Usuario usuario) {
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        if (usuarioOptional.isPresent()) {
+            Usuario existingUsuario = usuarioOptional.get();
+            existingUsuario.setNombre(usuario.getNombre());
+            existingUsuario.setDireccion(usuario.getDireccion());
+            existingUsuario.setTelefono(usuario.getTelefono());
+            existingUsuario.setEmail(usuario.getEmail());
+            return usuarioRepository.save(existingUsuario);
+        } else {
+            return null; 
+        }
+	}
 }

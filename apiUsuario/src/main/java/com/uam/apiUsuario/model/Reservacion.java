@@ -15,12 +15,8 @@ public class Reservacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Mas campos de la reservación
 
     @ManyToOne
     private Usuario usuario;
 
-    // Getters y setters
-
-    // Otros campos y métodos
 }
